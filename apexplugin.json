@@ -1,0 +1,47 @@
+{
+  "name" : "Pretius Extend Classic Report",
+  "version" : "1.0.0",
+  "description" : "Pretius Extend Classic Report is dynamic action plugin for freezing columns and header of classic report. By dividing the report on four sections it is possible to freeze any number of columns and choose what type of freeze we want to choose.",
+  "keywords" : ["clasic report", "freeze", "header", "columns","scrollbar"],
+  "homepage" : "https://github.com/Pretius/Pretius-Extend-Classic-Report",
+  "bugs" : {
+    "url" : "https://github.com/Pretius/Pretius-Extend-Classic-Report/issues",
+    "email" : "apex-plugins@pretius.com"
+  },
+  "license" : "MIT",
+  "commercial" : "No",
+  "commercially_supported":"Yes",
+  "author" : {
+    "name" : "Bartosz Sypuła",
+    "email" : "bartosz.sypula94@gmail.com",
+    "twitter": "sypulabartosz"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/Pretius/Pretius-Extend-Classic-Report.git"
+  },
+  "oracle": {
+    "versions": [
+      "11.2.0.1",
+      "12.1.0.1",
+      "12.2.0.1",
+      "18.0.0.0"
+    ],
+    "apex": {
+      "versions": [
+        "5.1.0",
+        "18.1.0",
+        "18.2.0",
+        "19.1.0",
+        "19.2.0",
+        "20.0.1"
+      ],
+      "plugin" : {
+        "internalName" : "PRETIUS_EXTEND_CLASSIC_REPORT",
+        "type" : "dynamic action",
+        "demo" : "https://apex.oracle.com/pls/apex/f?p=PRETIUS_EXTEND_CLASSIC_REPORT:100",
+        "previewImage": "https://raw.githubusercontent.com/Pretius/Pretius-Extend-Classic-Report/master/images/pretius_apex_extend_classic_report_gif.gif"
+      }
+    }
+  }
+}
