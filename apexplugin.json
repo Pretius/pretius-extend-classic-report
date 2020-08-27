@@ -40,7 +40,7 @@
         "internalName" : "PRETIUS_EXTEND_CLASSIC_REPORT",
         "type" : "dynamic action",
         "demo" : "https://apex.oracle.com/pls/apex/f?p=PRETIUS_EXTEND_CLASSIC_REPORT:100",
-        "previewImage": "https://raw.githubusercontent.com/Pretius/Pretius-Extend-Classic-Report/master/images/pretius_apex_extend_classic_report_gif.gif"
+        "previewImage": "https://raw.githubusercontent.com/Pretius/Pretius-Extend-Classic-Report/master/images/pretius_extend_classic_report_gif.gif"
       }
     }
   }
