@@ -2,6 +2,26 @@
 
 Pretius Extend Classic Report is dynamic action plugin for freezing columns and header of classic report in Oracle Application Express(APEX).
 
+## Table of Contents
+- [Information about plugin](#information-about-plugin)
+- [Preview](#preview)
+- [License](#license)
+- [Features at glance](#features-at-glance)
+- [Roadmap](#roadmap)
+- [Installation](#installation)
+  - [Installation package](#installation-package)
+  - [Installation procedure](#installation-procedure)
+- [Usage guide & Demo application](#usage-guide-demo-application)
+- [Free support](#free-support)
+  - [Bug reporting and change requests](#bug-reporting-and-change-requests)
+  - [Implementation issues](#implementation-issues)
+- [Become a contributor](#become-a-contributor)
+- [Comercial support](#comercial-support)
+- [Changelog](#changelog)
+- [Known issues](#known-issues)
+- [About Author](#about-author)
+- [About Pretius](#about-pretius)
+
 ## Information about plugin
 
 In many situations, Classic Reports have multiple columns and users want to have a key column visible all the time even if horizontal scroll appeared. The best solution for this problem is to freeze these key columns to make them all the time visible. In classic report this kind of option is not available. The same happens with headers if the vertical scroll appear. It is very useful to have freeze header stick to the top of browser window. For these particular cases The Pretius Extend Classic Report was created.
@@ -15,7 +35,7 @@ In many situations, Classic Reports have multiple columns and users want to have
 
 MIT
 
-## Feature at glance
+## Features at glance
 * compatible with Oracle APEX 5.1, 18.x, 19.x
 * freeze column in classic report
 * freeze headers in classic report
@@ -88,8 +108,14 @@ Author | Github | Twitter | E-mail
 Bartosz Sypuła | [@sypulabartosz](https://github.com/sypulabartosz) | [@sypulabartosz](https://twitter.com/sypulabartosz) | bsypula@pretius.com
 
 Thanks to [@bostrowski](https://github.com/bostrowski) for pro tips, which I received and help in creation of the plugin
+
 ## About Pretius
 Pretius Sp. z o.o. Sp. K.
+
+Pretius is a software company specialized in Java-based and low-code applications, with a dedicated team of over 25 Oracle APEX developers.
+Members of our APEX team are technical experts, have excellent communication skills, and work directly with end-users / business owners of the software. Some of them are also well-known APEX community members, winners of APEX competitions, and speakers at international conferences.
+We are the authors of the translate-apex.com project and some of the best APEX plug-ins available at the apex.world.
+We are located in Poland, but working globally. If you need the APEX support, contact us right now.
 
 Address | Website | E-mail
 --------|---------|-------
