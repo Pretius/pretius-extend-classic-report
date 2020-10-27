@@ -29,7 +29,7 @@ $.widget('pretius.freezeWidget', {
       freeze_header : this.options.plugin.action.attribute01 ? this.options.plugin.action.attribute01.indexOf('freeze_header') > -1 : false,
       number_of_columns_to_freeze : (this.options.plugin.action.attribute01 ? this.options.plugin.action.attribute01.indexOf('freeze_column') > -1 : false) ? this.options.plugin.action.attribute02 : 0,
       reportregion_id : this.element.attr('id'),
-      max_column_amount : this.element.find('.t-Report-tableWrap tbody tr:first td').length
+      max_column_amount : this.element.find('.t-Report-tableWrap tbody tr:first').length == 1 ? this.element.find('.t-Report-tableWrap tbody tr:first td').length : ((this.options.plugin.action.attribute01 ? this.options.plugin.action.attribute01.indexOf('freeze_column') > -1 : false) ? this.options.plugin.action.attribute02 : 0)
     };
     this.plugin_settings = {
       backgroundcolor: this.element.css("background-color"),
