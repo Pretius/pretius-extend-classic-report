@@ -6,7 +6,8 @@ $.widget('pretius.freezeWidget', {
   C_ERROR_MESSAGE : {
     not_proper_col_amount : "The plugin was stopped because of not proper amount of columns.",
     to_much_freeze_col : "Number of columns to freeze is larger than number of all report columns",
-    freeze_col_smaler_than_0 : "Number of columns to freeze is less than or equal to 0."
+    freeze_col_smaler_than_0 : "Number of columns to freeze is less than or equal to 0.",
+    no_data_found : "Report returns zero rows"
   },
   C_LOG_LVL_ERROR    : debug.LOG_LEVEL.ERROR,         // value 1 (end-user)  
   C_LOG_LVL_WARNING  : debug.LOG_LEVEL.WARN,          // value 2 (developer)
@@ -29,12 +30,14 @@ $.widget('pretius.freezeWidget', {
       freeze_header : this.options.plugin.action.attribute01 ? this.options.plugin.action.attribute01.indexOf('freeze_header') > -1 : false,
       number_of_columns_to_freeze : (this.options.plugin.action.attribute01 ? this.options.plugin.action.attribute01.indexOf('freeze_column') > -1 : false) ? this.options.plugin.action.attribute02 : 0,
       reportregion_id : this.element.attr('id'),
-      max_column_amount : this.element.find('.t-Report-tableWrap tbody tr:first').length == 1 ? this.element.find('.t-Report-tableWrap tbody tr:first td').length : ((this.options.plugin.action.attribute01 ? this.options.plugin.action.attribute01.indexOf('freeze_column') > -1 : false) ? this.options.plugin.action.attribute02 : 0)
+      max_column_amount : this.element.find('.t-Report-tableWrap tbody tr:first').length == 1 ? this.element.find('.t-Report-tableWrap tbody tr:first td').length : ((this.options.plugin.action.attribute01 ? this.options.plugin.action.attribute01.indexOf('freeze_column') > -1 : false) ? this.options.plugin.action.attribute02 : 0),
+      
     };
     this.plugin_settings = {
       backgroundcolor: this.element.css("background-color"),
       IsModal : $(".t-Dialog-bodyWrapperIn").is(":visible") ? 1: 0,
-      scrollYSelector : $(".t-Dialog-bodyWrapperIn").is(":visible") ? $(".t-Dialog-bodyWrapperIn"): $(document)
+      scrollYSelector : $(".t-Dialog-bodyWrapperIn").is(":visible") ? $(".t-Dialog-bodyWrapperIn"): $(document),
+      no_data_found : this.element.find('.t-Report-tableWrap tbody tr').length > 0 ? false: true
     };
     // check restrictions for freezeing columns
     if(this.options.freeze_columns){
@@ -42,11 +45,14 @@ $.widget('pretius.freezeWidget', {
     }
     if(this.not_proper_column_value){
       this._throwError(this.C_ERROR_MESSAGE.not_proper_col_amount);
-    }else{
+    }
+    else{
 
-      this._set_default_settings();
+      if(!this.plugin_settings.no_data_found){
+        this._set_default_settings();
+        this.element.bind('apexbeforerefresh', $.proxy( this.before_report_refresh, this ));
+      }
       //events on refresh of report
-      this.element.bind('apexbeforerefresh', $.proxy( this.before_report_refresh, this ));
       this.element.bind('apexafterrefresh', $.proxy( this.after_report_refresh, this ));
       // events on apexwindowresized
       $(window).bind('apexwindowresized', $.proxy( this._window_resize_report, this ));
@@ -57,7 +63,10 @@ $.widget('pretius.freezeWidget', {
   after_report_refresh: function( pEvent ){
     debug.message(this.C_LOG_LVL_DEBUG,this.C_PLUGIN_NAME,'after_report_refresh', pEvent);
     // retrive report settings
-    this._set_default_settings();
+    this.plugin_settings.no_data_found = this.element.find('.t-Report-tableWrap tbody tr').length > 0 ? false: true;
+    if(!this.plugin_settings.no_data_found){
+      this._set_default_settings();
+    }
     //refresh scrolls
     this.plugin_settings.scrollYSelector.scrollTop(this.plugin_settings.scrollYSelector.scrollTop()+1);
     this.plugin_settings.scrollYSelector.scrollTop(this.plugin_settings.scrollYSelector.scrollTop()-1);
@@ -74,8 +83,10 @@ $.widget('pretius.freezeWidget', {
     let widget = this;
     const myObserver = new ResizeObserver(function(entries) {
       entries.forEach(function(entry) {
-        widget._set_cell_Heights();
-        widget._set_cell_Widths();
+        if(!widget.plugin_settings.no_data_found){
+          widget._set_cell_Heights();
+          widget._set_cell_Widths();
+        }
       });
     });
 
@@ -107,11 +118,6 @@ $.widget('pretius.freezeWidget', {
       debug.message(this.C_LOG_LVL_ERROR,this.C_PLUGIN_NAME,'Number of columns to freeze is less than or equal to 0');
 
       this._show_error_page_message(this.C_ERROR_MESSAGE.freeze_col_smaler_than_0);
-      this.not_proper_column_value = true;
-    }
-    else if(table_wrap.find('tbody tr:first td:nth-child('+this.options.number_of_columns_to_freeze+')').offset().left + table_wrap.find('tbody tr:first td:nth-child('+this.options.number_of_columns_to_freeze+')').outerWidth() >this.new_raport.outerWidth() + this.new_raport.offset().left){
-      debug.message(this.C_LOG_LVL_ERROR,this.C_PLUGIN_NAME,'The width of freeze columns is to much to freeze report properly');
-      this._show_error_page_message(this.C_ERROR_MESSAGE.not_proper_col_amount);
       this.not_proper_column_value = true;
     }
     else{
@@ -151,9 +157,22 @@ $.widget('pretius.freezeWidget', {
     ]);
   },
   _set_default_settings: function(){
+
     this.new_raport = this.element.find('div[id*="catch"]')
     this.new_raport_table_wrapper = this.new_raport.find('.t-Report > .t-Report-wrap > .t-Report-tableWrap');
     this.new_raport_table = this.new_raport.find('.t-Report > .t-Report-wrap > .t-Report-tableWrap > table');
+    if(this.options.freeze_columns){
+      if( this.new_raport_table_wrapper.find('tbody tr:first td:nth-child('+this.options.number_of_columns_to_freeze+')').offset().left + this.new_raport_table_wrapper.find('tbody tr:first td:nth-child('+this.options.number_of_columns_to_freeze+')').outerWidth() > this.new_raport.outerWidth() + this.new_raport.offset().left){
+        console.log(this.element);
+        debug.message(this.C_LOG_LVL_ERROR,this.C_PLUGIN_NAME,'The width of freeze columns is to much to freeze report properly');
+        this._show_error_page_message(this.C_ERROR_MESSAGE.not_proper_col_amount);
+        this.not_proper_column_value = true;
+      };
+    }
+    if(this.not_proper_column_value){
+      this._throwError(this.C_ERROR_MESSAGE.not_proper_col_amount);
+    };
+
     this.report_divs = this._get_divs();
   
     this.report_tdivs = this._get_tdivs();
