@@ -12,9 +12,10 @@
   "commercial" : "No",
   "commercially_supported":"Yes",
   "author" : {
-    "name" : "Bartosz Sypuła",
-    "email" : "bartosz.sypula94@gmail.com",
-    "twitter": "sypulabartosz"
+    "name" : "Pretius",
+    "email" : "apex-plugins@pretius.com",
+    "url" : "http://www.pretius.com",
+    "twitter": "PretiusSoftware"
   },
   "repository" : {
     "type" : "git",
@@ -40,7 +41,7 @@
         "internalName" : "PRETIUS_EXTEND_CLASSIC_REPORT",
         "type" : "dynamic action",
         "demo" : "https://apex.oracle.com/pls/apex/f?p=PRETIUS_EXTEND_CLASSIC_REPORT:100",
-        "previewImage": "https://raw.githubusercontent.com/Pretius/pretius-extend-classic-report/master/images/pretius_extend_classic_report_gif.gif"
+        "previewImage": "https://raw.githubusercontent.com/Pretius/Pretius-Extend-Classic-Report/master/images/pretius_extend_classic_report_gif.gif"
       }
     }
   }
